@@ -1,0 +1,87 @@
+#### LiMuSE Setting
+name: LiMuSE_pytorch
+gpu_ids: [0,1]
+
+#### training settings: learning rate scheme, loss
+train:
+  optimizer: adam
+  min_lr: !!float 1e-8
+  stop: 8
+  patience: 4
+  factor: 0.1
+  logging_period: 200
+  clip_norm: 5
+  num_epochs: 50
+  checkpoint: LiMuSE_K_16_woQ
+  model_save_path: LiMuSE_K_16_woQ
+  QA_flag: False
+  ak: 8
+  bit: 3
+  temperature: 20
+  log_path: ./log
+  tensorboard: ./tensorboard
+
+optimizer_kwargs:
+  lr: !!float 1e-3
+  weight_decay: !!float 1e-5
+
+#### network configure
+net_conf:
+  N: 128
+  hidden_dim: 256
+  K: 32
+  context_size: 32
+  group_size: 16
+  num_spks: 2
+  activate: sigmoid
+  causal: False
+  QA_flag: False
+  ak: 8
+
+#### resume model
+resume:
+  path: ./LiMuSE_K_16_woQ/best.pt
+  resume_state: True
+  resume_state_Q: False
+
+#### Dataset Configure
+# BATCH_SIZE
+BATCH_SIZE: 8
+TEST_BATCH_SIZE: 1
+
+REAL_TIME: False
+LOW_LATENCY: 100
+CUES:
+  - binaural
+  - azimuth
+  - visual
+  - voiceprint
+CUE_MISSING_TRAINING: False
+CUE_INFERING_TRAINING: True
+
+# data setting
+DATASET: multi_channel_grid
+DATA_PATH: /media/aiden/D83891573891358A/datasets/MC_GRID
+DATA_LIST_PATH:
+  - ./grid/datalist_2mix_train.txt
+  - ./grid/datalist_2mix_valid.txt
+  - ./grid/datalist_2mix_test.txt
+SPEAKER_NUM: 21
+SPEAKER: 2
+CHANNEL: 2
+REVER: False
+NOISE: False
+NOISE_PATH:
+NOISE_DB_SPAN:
+  - 5
+  - 15
+MAX_LEN: 3
+FPS: 25
+WIN: 0.002
+FRAME_RATE: 16000
+AZIMUTH_NOISE: 0.1309
+REGISTER_VOICE_VAD: True
+PICKLE: True
+MASKING_DB_SPAN:
+  - -2.5
+  - 2.5
