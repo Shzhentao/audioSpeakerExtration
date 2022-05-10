@@ -126,7 +126,11 @@ import copy
 if __name__ == "__main__":
     with open('./grid_vp.pkl', 'rb') as fi:
         vp_dict = pickle.load(fi)
+    timesss = 0
     for key in vp_dict.keys():
+        if timesss > 0:
+            break
+        timesss = timesss + 1
         print(vp_dict[key].shape)
         print('key = {}, value = {}'.format(key, vp_dict[key]))
     # config = utils.read_config('./options/train/train.yml')
